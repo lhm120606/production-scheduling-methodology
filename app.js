@@ -1,0 +1,10 @@
+'use strict';
+const flows = [
+ {label:'GOALS / 目标',title:'先明确目标，再整理必要信息。',description:'明确交付要求、任务范围和已有进度，区分已知信息与待确认项。可靠的计划需要可靠的输入。',details:['明确交付目标与时间边界','识别缺失或不确定的信息','统一任务与资源的计量口径'],keyword:['数据有依据，','计划才有起点。']},
+ {label:'DEPENDENCIES / 依赖',title:'从目标倒推，识别前置关系。',description:'将交付目标拆解成相互衔接的任务，识别前置条件、关键节点与必要间隔，理解局部延迟可能带来的影响。',details:['明确哪些任务必须先完成','识别会影响交付的关键节点','检查整条任务链是否衔接'],keyword:['知道任务如何衔接，','才能判断时间是否足够。']},
+ {label:'CONSTRAINTS / 约束',title:'把资源条件放进计划本身。',description:'综合考虑人员、设备、材料和任务依赖。资源发生冲突时，需要重新协调安排，而不是只改变日期。',details:['检查资源是否可用','识别超负荷与任务冲突','保留需要稳定的执行边界'],keyword:['安排得下，','也要执行得了。']},
+ {label:'FEEDBACK / 反馈',title:'用实际进度持续校准计划。',description:'记录完成情况与偏差原因，判断变化影响到哪些任务，再进行必要调整。让每轮计划都建立在最新的执行信息上。',details:['收集执行进度与偏差信息','判断变更影响范围','复核调整后的可行性'],keyword:['让执行提供反馈，','让计划跟上变化。']}
+];
+const tabs = Array.from(document.querySelectorAll('[data-step]'));
+function selectStep(index,focus=false){const item=flows[index];if(!item)return;tabs.forEach((tab,i)=>{tab.setAttribute('aria-selected',String(i===index));tab.tabIndex=i===index?0:-1;});document.getElementById('flow-panel').setAttribute('aria-labelledby',`tab-${index}`);for(const key of ['label','title','description'])document.getElementById(`flow-${key}`).textContent=item[key];document.getElementById('flow-number').textContent=`0${index+1} / 04`;document.getElementById('flow-details').replaceChildren(...item.details.map(text=>{const li=document.createElement('li');li.textContent=text;return li;}));const keyword=document.getElementById('flow-keyword');keyword.replaceChildren(document.createTextNode(item.keyword[0]),document.createElement('br'),document.createTextNode(item.keyword[1]));if(focus)tabs[index].focus();}
+tabs.forEach((tab,index)=>{tab.addEventListener('click',()=>selectStep(index));tab.addEventListener('keydown',event=>{let next=index;if(event.key==='ArrowRight')next=(index+1)%tabs.length;else if(event.key==='ArrowLeft')next=(index+tabs.length-1)%tabs.length;else if(event.key==='Home')next=0;else if(event.key==='End')next=tabs.length-1;else return;event.preventDefault();selectStep(next,true);});});
