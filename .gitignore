@@ -1,0 +1,22 @@
+# 本地业务数据、备份、上传和导出
+/work/
+/outputs/
+*.db
+*.sqlite
+*.sqlite3
+*.xlsx
+*.xlsm
+.env
+.env.*
+# 依赖、构建产物及缓存
+.venv*/
+node_modules/
+frontend/dist/
+frontend/*.tsbuildinfo
+__pycache__/
+*.py[cod]
+.DS_Store
+build/
+dist/
+dist_app/
+release_windows/

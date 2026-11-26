@@ -1,0 +1,8 @@
+{
+  "scripts": {
+    "dev": "pnpm --dir frontend dev",
+    "build": "pnpm --dir frontend build",
+    "preview": "pnpm --dir frontend preview"
+  },
+  "devDependencies": {}
+}
